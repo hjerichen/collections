@@ -1,0 +1,26 @@
+{
+    "name": "hjerichen/collections",
+    "description": "Collections for daily use.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Heiko Jerichen",
+            "email": "heiko@jerichen.de"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "HJerichen\\Collections\\": "src/",
+            "HJerichen\\Collections\\TestHelpers\\": "tests/helpers/"
+        }
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^8.0",
+        "php-coveralls/php-coveralls": "^2.1"
+    }
+}
