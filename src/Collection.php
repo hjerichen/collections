@@ -72,5 +72,10 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         return count($this->items);
     }
 
+    public function asArray(): array
+    {
+        return $this->items;
+    }
+
     abstract protected function checkType($item): bool;
 }
