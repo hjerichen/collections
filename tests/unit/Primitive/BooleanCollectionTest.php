@@ -27,13 +27,13 @@ class BooleanCollectionTest extends TestCase
         $this->collection = new BooleanCollection();
     }
 
+
+    /* TESTS */
+
     public function testClassImplementsCorrectInterface(): void
     {
         $this->assertInstanceOf(Collection::class, $this->collection);
     }
-
-
-    /* TESTS */
 
     public function testAddTrue(): void
     {
