@@ -24,7 +24,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function pushMultiple(array $items): void
     {
         foreach ($items as $key => $item) {
-            $this->offsetSet($key, $item);
+            $this[$key] = $item;
         }
     }
 
@@ -75,6 +75,30 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function asArray(): array
     {
         return $this->items;
+    }
+
+    public function merge(Collection ...$collections)
+    {
+        $arrays = [];
+        foreach ($collections as $collection) {
+            $this->checkCollectionForMerge($collection);
+            $arrays[] = $collection->asArray();
+        }
+        $this->items = array_merge($this->items, ...$arrays);
+    }
+
+    private function checkCollectionForMerge(Collection $collection): void
+    {
+        if ($this->canCollectionBeMerged($collection)) {
+            return;
+        }
+        $message = 'Collections of different types can not be merged.';
+        throw new InvalidArgumentException($message);
+    }
+
+    private function canCollectionBeMerged(Collection $collection): bool
+    {
+        return get_class($this) === get_class($collection);
     }
 
     abstract protected function checkType($item): bool;
