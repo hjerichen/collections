@@ -30,6 +30,11 @@ class StringCollection extends Collection
         return parent::getIterator();
     }
 
+    public function offsetGet($offset): ?string
+    {
+        return parent::offsetGet($offset);
+    }
+
     public function offsetSet($offset, $item): void
     {
         if ($this->checkType($item)) {

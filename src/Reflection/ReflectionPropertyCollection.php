@@ -23,4 +23,9 @@ class ReflectionPropertyCollection extends ObjectCollection
     {
         return parent::getIterator();
     }
+
+    public function offsetGet($offset): ?ReflectionProperty
+    {
+        return parent::offsetGet($offset);
+    }
 }

@@ -26,6 +26,11 @@ class BooleanCollection extends Collection
         return parent::getIterator();
     }
 
+    public function offsetGet($offset): ?bool 
+    {
+        return parent::offsetGet($offset);
+    }
+
     public function offsetSet($offset, $item): void
     {
         if ($this->checkType($item)) {

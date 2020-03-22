@@ -23,6 +23,11 @@ class IntegerCollection extends Collection
         return parent::getIterator();
     }
 
+    public function offsetGet($offset): ?int
+    {
+        return parent::offsetGet($offset);
+    }
+
     public function offsetSet($offset, $item): void
     {
         if ($this->checkType($item)) {
