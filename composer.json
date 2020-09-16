@@ -15,7 +15,7 @@
     "autoload": {
         "psr-4": {
             "HJerichen\\Collections\\": "src/",
-            "HJerichen\\Collections\\TestHelpers\\": "tests/helpers/"
+            "HJerichen\\Collections\\Test\\": "tests"
         }
     },
     "require-dev": {

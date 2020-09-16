@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections;
+namespace HJerichen\Collections\Test\Unit;
 
+use HJerichen\Collections\Collection;
 use HJerichen\Collections\Primitive\IntegerCollection;
 use HJerichen\Collections\Primitive\StringCollection;
 use InvalidArgumentException;
@@ -21,7 +22,7 @@ class CollectionTest extends TestCase
 
         $expected = $items;
         $actual = $collection->asArray();
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testMergingTwoCollections(): void
@@ -35,7 +36,7 @@ class CollectionTest extends TestCase
         $collection1->merge($collection2);
         $expected = $collection1->asArray();
         $actual = [1, 2, 3, 4];
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testMergingMultipleCollections(): void
@@ -51,7 +52,7 @@ class CollectionTest extends TestCase
         $collection1->merge($collection2, $collection3);
         $expected = $collection1->asArray();
         $actual = [1, 2, 3, 4, 5, 6];
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testMergingWithDifferentCollectionTypes(): void

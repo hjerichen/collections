@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\Reflection;
+namespace HJerichen\Collections\Test\Unit\Reflection;
 
 use HJerichen\Collections\Collection;
-use HJerichen\Collections\TestHelpers\NormalObject;
-use HJerichen\Collections\TestHelpers\StringObject;
+use HJerichen\Collections\Reflection\ReflectionPropertyCollection;
+use HJerichen\Collections\Test\Helpers\NormalObject;
+use HJerichen\Collections\Test\Helpers\StringObject;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
@@ -41,7 +42,7 @@ class ReflectionPropertyCollectionTest extends TestCase
     {
         $expected = Collection::class;
         $actual = $this->collection;
-        $this->assertInstanceOf($expected, $actual);
+        self::assertInstanceOf($expected, $actual);
     }
 
     public function testInitializeWitReflectionProperty(): void
@@ -50,7 +51,7 @@ class ReflectionPropertyCollectionTest extends TestCase
 
         $expected = $this->reflectionProperty;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddReflectionProperty(): void
@@ -59,7 +60,7 @@ class ReflectionPropertyCollectionTest extends TestCase
 
         $expected = $this->reflectionProperty;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddOtherObject(): void
@@ -69,12 +70,13 @@ class ReflectionPropertyCollectionTest extends TestCase
         $this->collection[] = new NormalObject();
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = $this->reflectionProperty;
 
         $expected = $this->reflectionProperty;
         $actual = $this->collection->getIterator()->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

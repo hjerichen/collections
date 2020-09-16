@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections;
+namespace HJerichen\Collections\Test\Unit;
 
-use HJerichen\Collections\TestHelpers\NormalObject;
+use HJerichen\Collections\Collection;
+use HJerichen\Collections\MixedCollection;
+use HJerichen\Collections\Test\Helpers\NormalObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,7 +32,7 @@ class MixedCollectionTest extends TestCase
 
     public function testClassImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->collection);
+        self::assertInstanceOf(Collection::class, $this->collection);
     }
 
     public function testAddToCollection(): void
@@ -42,9 +44,9 @@ class MixedCollectionTest extends TestCase
         $this->collection[] = true;
         $this->collection[] = $normalObject;
 
-        $this->assertSame('test', $this->collection[0]);
-        $this->assertSame(3, $this->collection[1]);
-        $this->assertSame(true, $this->collection[2]);
-        $this->assertSame($normalObject, $this->collection[3]);
+        self::assertSame('test', $this->collection[0]);
+        self::assertSame(3, $this->collection[1]);
+        self::assertTrue($this->collection[2]);
+        self::assertSame($normalObject, $this->collection[3]);
     }
 }

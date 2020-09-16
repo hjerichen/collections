@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\TestHelpers;
+namespace HJerichen\Collections\Test\Helpers;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>

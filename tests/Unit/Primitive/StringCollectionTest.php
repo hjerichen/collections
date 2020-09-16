@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\Primitive;
+namespace HJerichen\Collections\Test\Unit\Primitive;
 
 use HJerichen\Collections\Collection;
-use HJerichen\Collections\TestHelpers\NormalObject;
-use HJerichen\Collections\TestHelpers\StringObject;
+use HJerichen\Collections\Primitive\StringCollection;
+use HJerichen\Collections\Test\Helpers\NormalObject;
+use HJerichen\Collections\Test\Helpers\StringObject;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +34,7 @@ class StringCollectionTest extends TestCase
 
     public function testClassImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->collection);
+        self::assertInstanceOf(Collection::class, $this->collection);
     }
 
     public function testAddString(): void
@@ -42,7 +43,7 @@ class StringCollectionTest extends TestCase
 
         $expected = 'test';
         $actual = $this->collection[0];
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function testAddInteger(): void
@@ -51,7 +52,7 @@ class StringCollectionTest extends TestCase
 
         $expected = '2';
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddStringObject(): void
@@ -60,7 +61,7 @@ class StringCollectionTest extends TestCase
 
         $expected = 'test';
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddNormalObject(): void
@@ -91,12 +92,13 @@ class StringCollectionTest extends TestCase
         $this->collection[] = [];
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testGettingIterator(): void
     {
         $this->collection[] = 'test';
 
         $expected = 'test';
         $actual = $this->collection->getIterator()->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

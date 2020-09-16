@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+/** @noinspection PhpPossiblePolymorphicInvocationInspection */
+declare(strict_types=1);
 
-namespace HJerichen\Collections;
+namespace HJerichen\Collections\Test\Unit\Reflection;
 
+use HJerichen\Collections\Collection;
 use HJerichen\Collections\Reflection\ReflectionMethodCollection;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -37,14 +40,14 @@ class ReflectionMethodCollectionTest extends TestCase
     {
         $expected = Collection::class;
         $actual = $this->collection;
-        $this->assertInstanceOf($expected, $actual);
+        self::assertInstanceOf($expected, $actual);
     }
 
     public function testCountForEmpty(): void
     {
         $expected = 0;
         $actual = count($this->collection);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testCountForTwo(): void
@@ -54,7 +57,7 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = 2;
         $actual = count($this->collection);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testRetrieveItem(): void
@@ -63,7 +66,7 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = $this->reflectionMethod1;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testRetrieveItemWithString(): void
@@ -73,7 +76,7 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = $this->reflectionMethod2;
         $actual = $this->collection['name'];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddingOtherTypeThrowException(): void
@@ -93,11 +96,11 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = $this->reflectionMethod1;
         $actual = $this->collection['test'];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $expected = null;
         $actual = $this->collection['name'];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testTraverseCollection(): void
@@ -110,27 +113,27 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = $this->reflectionMethod1;
         $actual = $iterator->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $expected = 'test';
         $actual = $iterator->key();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $iterator->next();
 
         $expected = $this->reflectionMethod2;
         $actual = $iterator->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $expected = 'name';
         $actual = $iterator->key();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $iterator->next();
 
         $expected = false;
         $actual = $iterator->valid();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testIsset(): void
@@ -140,11 +143,11 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = true;
         $actual = isset($this->collection['test']);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $expected = false;
         $actual = isset($this->collection['jon']);
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testPutItemsIntoConstructor(): void
@@ -158,7 +161,7 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $expected = $reflectionClasses[0];
         $actual = $collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testPutWrongItemsIntoConstructor(): void

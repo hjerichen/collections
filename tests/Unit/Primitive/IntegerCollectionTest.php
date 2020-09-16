@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\Primitive;
+namespace HJerichen\Collections\Test\Unit\Primitive;
 
 use HJerichen\Collections\Collection;
+use HJerichen\Collections\Primitive\IntegerCollection;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ class IntegerCollectionTest extends TestCase
 
     public function testClassImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->collection);
+        self::assertInstanceOf(Collection::class, $this->collection);
     }
 
     public function testAddInteger(): void
@@ -40,7 +41,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = 45;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddIntegerAsString(): void
@@ -49,7 +50,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = 45;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddZero(): void
@@ -58,7 +59,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = 0;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddZeroAsString(): void
@@ -67,7 +68,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = 0;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddNegativeInteger(): void
@@ -76,7 +77,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = -10;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddNegativeIntegerAsString(): void
@@ -85,7 +86,7 @@ class IntegerCollectionTest extends TestCase
 
         $expected = -10;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddFloat(): void
@@ -123,12 +124,13 @@ class IntegerCollectionTest extends TestCase
         $this->collection[] = false;
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testGettingIterator(): void
     {
         $this->collection[] = 3;
 
         $expected = 3;
         $actual = $this->collection->getIterator()->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

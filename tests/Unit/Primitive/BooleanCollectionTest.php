@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\Primitive;
+namespace HJerichen\Collections\Test\Unit\Primitive;
 
 use HJerichen\Collections\Collection;
-use HJerichen\Collections\TestHelpers\NormalObject;
+use HJerichen\Collections\Primitive\BooleanCollection;
+use HJerichen\Collections\Test\Helpers\NormalObject;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -32,7 +33,7 @@ class BooleanCollectionTest extends TestCase
 
     public function testClassImplementsCorrectInterface(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->collection);
+        self::assertInstanceOf(Collection::class, $this->collection);
     }
 
     public function testAddTrue(): void
@@ -41,7 +42,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = true;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddFalse(): void
@@ -50,7 +51,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = false;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddOne(): void
@@ -59,7 +60,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = true;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddZero(): void
@@ -68,7 +69,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = false;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddOneAsString(): void
@@ -77,7 +78,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = true;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddZeroAsString(): void
@@ -86,7 +87,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = false;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddEmptyString(): void
@@ -95,7 +96,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = false;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddTrueString(): void
@@ -104,7 +105,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = true;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddFalseString(): void
@@ -113,7 +114,7 @@ class BooleanCollectionTest extends TestCase
 
         $expected = false;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddSomeString(): void
@@ -151,13 +152,14 @@ class BooleanCollectionTest extends TestCase
         $this->collection[] = new NormalObject();
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testGettingIterator(): void
     {
         $this->collection[] = true;
 
         $expected = true;
         $actual = $this->collection->getIterator()->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
 

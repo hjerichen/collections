@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace HJerichen\Collections\Reflection;
+namespace HJerichen\Collections\Test\Unit\Reflection;
 
 use HJerichen\Collections\Collection;
-use HJerichen\Collections\TestHelpers\NormalObject;
+use HJerichen\Collections\Reflection\ReflectionClassCollection;
+use HJerichen\Collections\Test\Helpers\NormalObject;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -40,7 +41,7 @@ class ReflectionClassCollectionTest extends TestCase
     {
         $expected = Collection::class;
         $actual = $this->collection;
-        $this->assertInstanceOf($expected, $actual);
+        self::assertInstanceOf($expected, $actual);
     }
 
     public function testInitializeWitReflectionClasses(): void
@@ -49,7 +50,7 @@ class ReflectionClassCollectionTest extends TestCase
 
         $expected = $this->reflectionClass;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddReflectionClass(): void
@@ -58,7 +59,7 @@ class ReflectionClassCollectionTest extends TestCase
 
         $expected = $this->reflectionClass;
         $actual = $this->collection[0];
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testAddOtherObject(): void
@@ -68,12 +69,13 @@ class ReflectionClassCollectionTest extends TestCase
         $this->collection[] = new NormalObject();
     }
 
+    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = $this->reflectionClass;
 
         $expected = $this->reflectionClass;
         $actual = $this->collection->getIterator()->current();
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }
