@@ -77,7 +77,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         return $this->items;
     }
 
-    public function merge(Collection ...$collections)
+    public function merge(Collection ...$collections): void
     {
         $arrays = [];
         foreach ($collections as $collection) {
