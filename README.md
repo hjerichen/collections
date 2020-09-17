@@ -3,8 +3,8 @@
 
 # Collections
 
-I like the fact that PHP is going the way to type security, but unfortunately we haven't reached our goal yet.
-The type security still has some gaps. One of the most annoying gap is (at least for me) that you cannot specify types for array elements.
+I like the fact that PHP is going the way to type safety, but unfortunately we haven't reached our goal yet.
+The type safety still has some gaps. One of the most annoying gap is (at least for me) that you cannot specify types for array elements.
 I don't like it at all to have to specify just "array" as return type.
 
 To avoid this I have created a small set of collections.
