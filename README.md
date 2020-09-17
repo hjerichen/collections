@@ -59,3 +59,6 @@ Already existing collections for build-in classes are:
 #### Mixed Collections
 The MixedCollection is basically like "array", but you are telling the reader that in fact it is an array with mixed types.  
 Just like PHP 8.0 is introducing the type "mixed".
+
+### License and authors
+This project is free and under the MIT Licence. Responsible for this project is Heiko Jerichen (heiko@jerichen.de).
