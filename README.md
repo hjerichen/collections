@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hjerichen/collections.svg?branch=master)](https://travis-ci.org/hjerichen/collections)
+[![Continuous Integration](https://github.com/hjerichen/collections/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/hjerichen/collections/actions)
 [![Coverage Status](https://coveralls.io/repos/github/hjerichen/collections/badge.svg?branch=master)](https://coveralls.io/github/hjerichen/collections?branch=master)
 
 # Collections
