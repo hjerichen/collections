@@ -35,10 +35,10 @@ class StringCollection extends Collection
         return parent::offsetGet($offset);
     }
 
-    public function offsetSet($offset, $item): void
+    public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($item)) {
-            $this->offsetSetWithoutCheck($offset, (string)$item);
+        if ($this->checkType($value)) {
+            $this->offsetSetWithoutCheck($offset, (string)$value);
         } else {
             $this->throwInvalidTypeException();
         }

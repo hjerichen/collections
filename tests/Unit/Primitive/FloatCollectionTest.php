@@ -12,14 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class FloatCollectionTest extends TestCase
 {
-    /**
-     * @var FloatCollection
-     */
-    private $collection;
+    private FloatCollection $collection;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

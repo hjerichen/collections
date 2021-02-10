@@ -10,7 +10,6 @@ use Traversable;
  */
 class FloatCollection extends Collection
 {
-
     protected function checkType($item): bool
     {
         return is_numeric($item);
@@ -29,10 +28,10 @@ class FloatCollection extends Collection
         return parent::offsetGet($offset);
     }
 
-    public function offsetSet($offset, $item): void
+    public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($item)) {
-            $this->offsetSetWithoutCheck($offset, (float)$item);
+        if ($this->checkType($value)) {
+            $this->offsetSetWithoutCheck($offset, (float)$value);
         } else {
             $this->throwInvalidTypeException();
         }

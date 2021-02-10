@@ -7,10 +7,7 @@ namespace HJerichen\Collections;
  */
 class ObjectCollection extends Collection
 {
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
     public function __construct(string $type, array $items = [])
     {

@@ -12,14 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class MixedCollectionTest extends TestCase
 {
-    /**
-     * @var MixedCollection
-     */
-    private $collection;
+    private MixedCollection $collection;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

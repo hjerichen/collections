@@ -13,14 +13,8 @@ use PHPUnit\Framework\TestCase;
  */
 class BooleanCollectionTest extends TestCase
 {
-    /**
-     * @var BooleanCollection
-     */
-    private $collection;
+    private BooleanCollection $collection;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

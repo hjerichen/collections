@@ -16,18 +16,9 @@ use ReflectionMethod;
  */
 class ReflectionMethodCollectionTest extends TestCase
 {
-    /**
-     * @var Collection
-     */
-    private $collection;
-    /**
-     * @var ReflectionMethod
-     */
-    private $reflectionMethod1;
-    /**
-     * @var ReflectionMethod
-     */
-    private $reflectionMethod2;
+    private Collection $collection;
+    private ReflectionMethod $reflectionMethod1;
+    private ReflectionMethod $reflectionMethod2;
 
     public function setUp(): void
     {

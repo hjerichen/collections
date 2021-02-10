@@ -7,10 +7,7 @@ namespace HJerichen\Collections\Test\Helpers;
  */
 class StringObject
 {
-    /**
-     * @var string
-     */
-    private $text;
+    private string $text;
 
     public function __construct(string $text)
     {

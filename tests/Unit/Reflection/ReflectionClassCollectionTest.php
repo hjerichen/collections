@@ -14,18 +14,9 @@ use ReflectionClass;
  */
 class ReflectionClassCollectionTest extends TestCase
 {
-    /**
-     * @var ReflectionClassCollection
-     */
-    private $collection;
-    /**
-     * @var ReflectionClass
-     */
-    private $reflectionClass;
+    private ReflectionClassCollection $collection;
+    private ReflectionClass $reflectionClass;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

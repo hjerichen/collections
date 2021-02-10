@@ -11,10 +11,7 @@ use Traversable;
 
 abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
 {
-    /**
-     * @var array
-     */
-    private $items = [];
+    private array $items = [];
 
     public function __construct(array $items = [])
     {
@@ -43,10 +40,10 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         return $this->items[$offset] ?? null;
     }
 
-    public function offsetSet($offset, $item): void
+    public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($item)) {
-            $this->offsetSetWithoutCheck($offset, $item);
+        if ($this->checkType($value)) {
+            $this->offsetSetWithoutCheck($offset, $value);
         } else {
             $this->throwInvalidTypeException();
         }

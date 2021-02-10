@@ -14,14 +14,8 @@ use PHPUnit\Framework\TestCase;
  */
 class StringCollectionTest extends TestCase
 {
-    /**
-     * @var StringCollection
-     */
-    private $collection;
+    private StringCollection $collection;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

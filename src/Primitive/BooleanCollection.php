@@ -31,11 +31,11 @@ class BooleanCollection extends Collection
         return parent::offsetGet($offset);
     }
 
-    public function offsetSet($offset, $item): void
+    public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($item)) {
-            if ($item === 'false') $item = false;
-            $this->offsetSetWithoutCheck($offset, (bool)$item);
+        if ($this->checkType($value)) {
+            if ($value === 'false') $value = false;
+            $this->offsetSetWithoutCheck($offset, (bool)$value);
         } else {
             $this->throwInvalidTypeException();
         }

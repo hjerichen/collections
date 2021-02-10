@@ -14,18 +14,9 @@ use ReflectionParameter;
  */
 class ReflectionParameterCollectionTest extends TestCase
 {
-    /**
-     * @var ReflectionParameterCollection
-     */
-    private $collection;
-    /**
-     * @var ReflectionParameter
-     */
-    private $reflectionParameter;
+    private ReflectionParameterCollection $collection;
+    private ReflectionParameter $reflectionParameter;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

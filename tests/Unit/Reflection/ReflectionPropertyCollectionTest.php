@@ -15,18 +15,9 @@ use ReflectionProperty;
  */
 class ReflectionPropertyCollectionTest extends TestCase
 {
-    /**
-     * @var ReflectionPropertyCollection
-     */
-    private $collection;
-    /**
-     * @var ReflectionProperty
-     */
-    private $reflectionProperty;
+    private ReflectionPropertyCollection $collection;
+    private ReflectionProperty $reflectionProperty;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();

@@ -12,14 +12,8 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegerCollectionTest extends TestCase
 {
-    /**
-     * @var IntegerCollection
-     */
-    private $collection;
+    private IntegerCollection $collection;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         parent::setUp();
