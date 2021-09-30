@@ -3,10 +3,10 @@
 namespace HJerichen\Collections\Primitive;
 
 use HJerichen\Collections\Collection;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<int>
  */
 class IntegerCollection extends Collection
 {
@@ -15,14 +15,7 @@ class IntegerCollection extends Collection
         return is_int($item) || ((string)$item === (string)(int)$item && !is_bool($item));
     }
 
-    /**
-     * @return Traversable | int[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
+    /** @noinspection PhpRedundantMethodOverrideInspection */
     public function offsetGet($offset): ?int
     {
         return parent::offsetGet($offset);

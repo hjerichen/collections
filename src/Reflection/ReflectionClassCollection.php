@@ -2,28 +2,23 @@
 
 namespace HJerichen\Collections\Reflection;
 
+use HJerichen\Collections\Collection;
 use HJerichen\Collections\ObjectCollection;
 use ReflectionClass;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<ReflectionClass>
  */
 class ReflectionClassCollection extends ObjectCollection
 {
+    /** @param array<int|string,ReflectionClass> $reflectionClasses */
     public function __construct(array $reflectionClasses = [])
     {
         parent::__construct(ReflectionClass::class, $reflectionClasses);
     }
 
-    /**
-     * @return Traversable | ReflectionClass[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
+    /** @noinspection PhpRedundantMethodOverrideInspection */
     public function offsetGet($offset): ?ReflectionClass
     {
         return parent::offsetGet($offset);

@@ -2,30 +2,19 @@
 
 namespace HJerichen\Collections\Reflection;
 
+use HJerichen\Collections\Collection;
 use HJerichen\Collections\ObjectCollection;
 use ReflectionParameter;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<ReflectionParameter>
  */
 class ReflectionParameterCollection extends ObjectCollection
 {
+    /** @param array<int|string,ReflectionParameter> $reflectionParameters */
     public function __construct(array $reflectionParameters = [])
     {
         parent::__construct(ReflectionParameter::class, $reflectionParameters);
-    }
-
-    /**
-     * @return Traversable | ReflectionParameter[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
-    public function offsetGet($offset): ?ReflectionParameter
-    {
-        return parent::offsetGet($offset);
     }
 }

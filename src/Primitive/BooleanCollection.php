@@ -3,10 +3,10 @@
 namespace HJerichen\Collections\Primitive;
 
 use HJerichen\Collections\Collection;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<bool>
  */
 class BooleanCollection extends Collection
 {
@@ -18,15 +18,8 @@ class BooleanCollection extends Collection
             $item === 'true' || $item === 'false';
     }
 
-    /**
-     * @return Traversable | bool[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
-    public function offsetGet($offset): ?bool 
+    /** @noinspection PhpRedundantMethodOverrideInspection */
+    public function offsetGet($offset): ?bool
     {
         return parent::offsetGet($offset);
     }

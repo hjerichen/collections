@@ -3,10 +3,10 @@
 namespace HJerichen\Collections\Primitive;
 
 use HJerichen\Collections\Collection;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<string>
  */
 class StringCollection extends Collection
 {
@@ -22,14 +22,7 @@ class StringCollection extends Collection
             (is_object($item) && method_exists($item, '__toString'));
     }
 
-    /**
-     * @return Traversable | string[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
+    /** @noinspection PhpRedundantMethodOverrideInspection */
     public function offsetGet($offset): ?string
     {
         return parent::offsetGet($offset);

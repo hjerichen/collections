@@ -4,6 +4,7 @@ namespace HJerichen\Collections;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<mixed>
  */
 class MixedCollection extends Collection
 {

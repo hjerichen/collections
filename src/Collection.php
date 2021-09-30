@@ -9,15 +9,22 @@ use InvalidArgumentException;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @author Heiko Jerichen <heiko@jerichen.de>
+ * @template T
+ */
 abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
 {
-    private array $items = [];
+    /** @var array<int|string,T> */
+    protected array $items = [];
 
+    /** @param array<int|string,T> $items*/
     public function __construct(array $items = [])
     {
         $this->pushMultiple($items);
     }
 
+    /** @param array<int|string,T> $items*/
     public function pushMultiple(array $items): void
     {
         foreach ($items as $key => $item) {
@@ -25,21 +32,34 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         }
     }
 
+    /** @return Traversable<T>|T[] */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->items);
     }
 
+    /**
+     * @param int|string $offset
+     * @return bool
+     */
     public function offsetExists($offset): bool
     {
         return isset($this->items[$offset]);
     }
 
+    /**
+     * @param int|string $offset
+     * @return T|null
+     */
     public function offsetGet($offset)
     {
         return $this->items[$offset] ?? null;
     }
 
+    /**
+     * @param int|string $offset
+     * @param T $value
+     */
     public function offsetSet($offset, $value): void
     {
         if ($this->checkType($value)) {
@@ -49,6 +69,10 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         }
     }
 
+    /**
+     * @param int|string $offset
+     * @param T $item
+     */
     protected function offsetSetWithoutCheck($offset, $item): void
     {
         $offset !== null ? $this->items[$offset] = $item : $this->items[] = $item;
@@ -59,6 +83,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         throw new InvalidArgumentException('invalid type');
     }
 
+    /** @param int|string $offset */
     public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
@@ -69,11 +94,13 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         return count($this->items);
     }
 
+    /** @return T[] */
     public function asArray(): array
     {
         return $this->items;
     }
 
+    /** @param Collection<T> ...$collections */
     public function merge(Collection ...$collections): void
     {
         $arrays = [];
@@ -84,6 +111,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         $this->items = array_merge($this->items, ...$arrays);
     }
 
+    /** @param Collection<T> $collection */
     private function checkCollectionForMerge(Collection $collection): void
     {
         if ($this->canCollectionBeMerged($collection)) {
@@ -93,10 +121,15 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         throw new InvalidArgumentException($message);
     }
 
+    /**
+     * @param Collection<T> $collection
+     * @return bool
+     */
     private function canCollectionBeMerged(Collection $collection): bool
     {
         return get_class($this) === get_class($collection);
     }
 
+    /** @param T $item */
     abstract protected function checkType($item): bool;
 }

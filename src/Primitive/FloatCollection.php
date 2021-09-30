@@ -3,10 +3,10 @@
 namespace HJerichen\Collections\Primitive;
 
 use HJerichen\Collections\Collection;
-use Traversable;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
+ * @extends Collection<float>
  */
 class FloatCollection extends Collection
 {
@@ -15,14 +15,7 @@ class FloatCollection extends Collection
         return is_numeric($item);
     }
 
-    /**
-     * @return Traversable | float[]
-     */
-    public function getIterator(): Traversable
-    {
-        return parent::getIterator();
-    }
-
+    /** @noinspection PhpRedundantMethodOverrideInspection */
     public function offsetGet($offset): ?float
     {
         return parent::offsetGet($offset);
