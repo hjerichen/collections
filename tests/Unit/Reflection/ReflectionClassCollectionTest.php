@@ -5,9 +5,9 @@ namespace HJerichen\Collections\Test\Unit\Reflection;
 use HJerichen\Collections\Collection;
 use HJerichen\Collections\Reflection\ReflectionClassCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -15,6 +15,7 @@ use ReflectionClass;
 class ReflectionClassCollectionTest extends TestCase
 {
     private ReflectionClassCollection $collection;
+    /** @var ReflectionClass<object>  */
     private ReflectionClass $reflectionClass;
 
     protected function setUp(): void
@@ -53,20 +54,22 @@ class ReflectionClassCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddOtherObject(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = new NormalObject();
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = $this->reflectionClass;
 
-        $expected = $this->reflectionClass;
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $class) {
+            $expected = $this->reflectionClass;
+            $actual = $class;
+            self::assertSame($expected, $actual);
+        }
     }
 }

@@ -10,23 +10,28 @@ use HJerichen\Collections\Collection;
  */
 class FloatCollection extends Collection
 {
-    protected function checkType($item): bool
-    {
-        return is_numeric($item);
-    }
-
-    /** @noinspection PhpRedundantMethodOverrideInspection */
+    /**
+     * @param array-key $offset
+     * @return float|null
+     */
     public function offsetGet($offset): ?float
     {
         return parent::offsetGet($offset);
     }
 
+    /**
+     * @param array-key|null $offset
+     * @param float $value
+     * @psalm-suppress RedundantCastGivenDocblockType
+     */
     public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($value)) {
-            $this->offsetSetWithoutCheck($offset, (float)$value);
-        } else {
-            $this->throwInvalidTypeException();
-        }
+        $this->checkType($value);
+        $this->offsetSetWithoutCheck($offset, (float)$value);
+    }
+
+    protected function isValidType($item): bool
+    {
+        return is_numeric($item);
     }
 }

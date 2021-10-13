@@ -6,9 +6,9 @@ use HJerichen\Collections\Collection;
 use HJerichen\Collections\Reflection\ReflectionPropertyCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
 use HJerichen\Collections\Test\Helpers\StringObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -56,18 +56,20 @@ class ReflectionPropertyCollectionTest extends TestCase
 
     public function testAddOtherObject(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
+        /** @psalm-suppress InvalidArgument */
         $this->collection[] = new NormalObject();
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = $this->reflectionProperty;
 
-        $expected = $this->reflectionProperty;
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $item) {
+            $expected = $this->reflectionProperty;
+            $actual = $item;
+            self::assertSame($expected, $actual);
+        }
     }
 }

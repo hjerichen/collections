@@ -9,10 +9,11 @@ use ReflectionProperty;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @extends Collection<ReflectionProperty>
+ * @extends ObjectCollection<ReflectionProperty>
  */
 class ReflectionPropertyCollection extends ObjectCollection
 {
-    /** @param array<int|string,ReflectionProperty> $reflectionProperties */
+    /** @param array<array-key,ReflectionProperty> $reflectionProperties */
     public function __construct(array $reflectionProperties = [])
     {
         parent::__construct(ReflectionProperty::class, $reflectionProperties);

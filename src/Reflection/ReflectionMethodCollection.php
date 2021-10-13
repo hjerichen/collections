@@ -9,10 +9,11 @@ use ReflectionMethod;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @extends Collection<ReflectionMethod>
+ * @extends ObjectCollection<ReflectionMethod>
  */
 class ReflectionMethodCollection extends ObjectCollection
 {
-    /** @param array<int|string,ReflectionMethod> $reflectionMethods */
+    /** @param array<array-key,ReflectionMethod> $reflectionMethods */
     public function __construct(array $reflectionMethods = [])
     {
         parent::__construct(ReflectionMethod::class, $reflectionMethods);

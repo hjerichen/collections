@@ -5,9 +5,10 @@ namespace HJerichen\Collections;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use InvalidArgumentException;
 use IteratorAggregate;
+use RuntimeException;
 use Traversable;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -15,31 +16,45 @@ use Traversable;
  */
 abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
 {
-    /** @var array<int|string,T> */
+    /** @var array<array-key,T> */
     protected array $items = [];
+    private bool $typeCheckEnabled = true;
 
-    /** @param array<int|string,T> $items*/
+    /** @param array<array-key,T> $items*/
     public function __construct(array $items = [])
     {
         $this->pushMultiple($items);
     }
 
-    /** @param array<int|string,T> $items*/
+    public function enableTypeCheck(): void
+    {
+        $this->typeCheckEnabled = true;
+    }
+
+    public function disableTypeCheck(): void
+    {
+        $this->typeCheckEnabled = false;
+    }
+
+    /** @param array<array-key,T> $items */
     public function pushMultiple(array $items): void
     {
-        foreach ($items as $key => $item) {
-            $this[$key] = $item;
+        foreach ($items as $item) {
+            $this[] = $item;
         }
     }
 
-    /** @return Traversable<T>|T[] */
+    /**
+     * @return Traversable<T>|T[]
+     * @psalm-return Traversable<T>
+     */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->items);
     }
 
     /**
-     * @param int|string $offset
+     * @param array-key $offset
      * @return bool
      */
     public function offsetExists($offset): bool
@@ -48,7 +63,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * @param int|string $offset
+     * @param array-key $offset
      * @return T|null
      */
     public function offsetGet($offset)
@@ -57,33 +72,16 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     }
 
     /**
-     * @param int|string $offset
+     * @param array-key|null $offset
      * @param T $value
      */
     public function offsetSet($offset, $value): void
     {
-        if ($this->checkType($value)) {
-            $this->offsetSetWithoutCheck($offset, $value);
-        } else {
-            $this->throwInvalidTypeException();
-        }
+        $this->checkType($value);
+        $this->offsetSetWithoutCheck($offset, $value);
     }
 
-    /**
-     * @param int|string $offset
-     * @param T $item
-     */
-    protected function offsetSetWithoutCheck($offset, $item): void
-    {
-        $offset !== null ? $this->items[$offset] = $item : $this->items[] = $item;
-    }
-
-    protected function throwInvalidTypeException(): void
-    {
-        throw new InvalidArgumentException('invalid type');
-    }
-
-    /** @param int|string $offset */
+    /** @param array-key $offset */
     public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
@@ -111,25 +109,100 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         $this->items = array_merge($this->items, ...$arrays);
     }
 
-    /** @param Collection<T> $collection */
-    private function checkCollectionForMerge(Collection $collection): void
+    /**
+     * @template TValue
+     * @param callable(T):TValue $callable
+     * @return array<array-key,TValue>
+     */
+    public function map(callable $callable): array
     {
-        if ($this->canCollectionBeMerged($collection)) {
-            return;
-        }
-        $message = 'Collections of different types can not be merged.';
-        throw new InvalidArgumentException($message);
+        return array_map($callable, $this->items);
+    }
+
+    /** @param callable(T):void $callable */
+    public function forEach(callable $callable): void
+    {
+        /** @psalm-suppress PossiblyInvalidPropertyAssignmentValue */
+        array_walk($this->items, $callable);
     }
 
     /**
-     * @param Collection<T> $collection
-     * @return bool
+     * @param callable(T):bool $callable
+     * @return T[]
      */
+    public function find(callable $callable): array
+    {
+        return array_filter($this->items, $callable);
+    }
+
+    /**
+     * @param callable(T):bool $callable
+     * @return T|null
+     */
+    public function findOne(callable $callable)
+    {
+        $found = $this->find($callable);
+        return empty($found) ? null : reset($found);
+    }
+
+    /** @param callable(T):bool $callable */
+    public function filter(callable $callable): void
+    {
+        $this->items = $this->find($callable);
+    }
+
+    public function resetIndex(): void
+    {
+        $this->items = array_values($this->items);
+    }
+
+    /** @param array-key[] $keys */
+    public function replaceKeys(array $keys): void
+    {
+        $this->checkKeysForReplace($keys);
+        $this->items = array_combine($keys, $this->items);
+    }
+
+    /** @param mixed $item */
+    abstract protected function isValidType($item): bool;
+
+    /** @param mixed $item */
+    protected function checkType($item): void
+    {
+        if ($this->typeCheckEnabled && !$this->isValidType($item)) {
+            throw new TypeError('invalid type');
+        }
+    }
+
+    /**
+     * @param array-key|null $offset
+     * @param T $item
+     */
+    protected function offsetSetWithoutCheck($offset, $item): void
+    {
+        $offset !== null ? $this->items[$offset] = $item : $this->items[] = $item;
+    }
+
+    private function checkCollectionForMerge(Collection $collection): void
+    {
+        if (!$this->canCollectionBeMerged($collection)) {
+            $message = 'Collections of different types can not be merged.';
+            throw new TypeError($message);
+        }
+    }
+
     private function canCollectionBeMerged(Collection $collection): bool
     {
         return get_class($this) === get_class($collection);
     }
 
-    /** @param T $item */
-    abstract protected function checkType($item): bool;
+    private function checkKeysForReplace(array $keys): void
+    {
+        if (count(array_unique($keys)) !== count($keys)) {
+            throw new RuntimeException('Provided keys are not unique.');
+        }
+        if (count($keys) !== count($this->items)) {
+            throw new RuntimeException('Number of keys do not match number of items.');
+        }
+    }
 }

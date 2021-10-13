@@ -5,9 +5,9 @@ namespace HJerichen\Collections\Test\Unit\Reflection;
 use HJerichen\Collections\Collection;
 use HJerichen\Collections\Reflection\ReflectionParameterCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionParameter;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -21,7 +21,8 @@ class ReflectionParameterCollectionTest extends TestCase
     {
         parent::setUp();
 
-        $function = static function($test) {};
+        /** @psalm-suppress UnusedClosureParam */
+        $function = static function(string $test): void {};
         $this->reflectionParameter = new ReflectionParameter($function, 'test');
         $this->collection = new ReflectionParameterCollection();
     }
@@ -57,18 +58,20 @@ class ReflectionParameterCollectionTest extends TestCase
 
     public function testAddOtherObject(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
+        /** @psalm-suppress InvalidArgument */
         $this->collection[] = new NormalObject();
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = $this->reflectionParameter;
 
-        $expected = $this->reflectionParameter;
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $item) {
+            $expected = $this->reflectionParameter;
+            $actual = $item;
+            self::assertSame($expected, $actual);
+        }
     }
 }

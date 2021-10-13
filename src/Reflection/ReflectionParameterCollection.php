@@ -9,12 +9,19 @@ use ReflectionParameter;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @extends Collection<ReflectionParameter>
+ * @extends ObjectCollection<ReflectionParameter>
  */
 class ReflectionParameterCollection extends ObjectCollection
 {
-    /** @param array<int|string,ReflectionParameter> $reflectionParameters */
+    /** @param array<array-key,ReflectionParameter> $reflectionParameters */
     public function __construct(array $reflectionParameters = [])
     {
         parent::__construct(ReflectionParameter::class, $reflectionParameters);
+    }
+
+    /** @noinspection PhpRedundantMethodOverrideInspection */
+    public function offsetGet($offset): ?ReflectionParameter
+    {
+        return parent::offsetGet($offset);
     }
 }

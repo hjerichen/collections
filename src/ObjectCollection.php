@@ -4,16 +4,17 @@ namespace HJerichen\Collections;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
- * @template T extends object
+ * @template T of object
  * @extends Collection<T>
  */
 class ObjectCollection extends Collection
 {
-    private string $type;
+    /** @var class-string */
+    protected string $type;
 
     /**
      * @param class-string<T> $type
-     * @param array<int|string,T> $items
+     * @param array<array-key,T> $items
      */
     public function __construct(string $type, array $items = [])
     {
@@ -21,7 +22,7 @@ class ObjectCollection extends Collection
         parent::__construct($items);
     }
 
-    protected function checkType($item): bool
+    protected function isValidType($item): bool
     {
         return $item instanceof $this->type;
     }

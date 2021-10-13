@@ -8,7 +8,7 @@ namespace HJerichen\Collections;
  */
 class MixedCollection extends Collection
 {
-    protected function checkType($item): bool
+    protected function isValidType($item): bool
     {
         return true;
     }

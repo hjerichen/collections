@@ -6,10 +6,10 @@ namespace HJerichen\Collections\Test\Unit\Reflection;
 
 use HJerichen\Collections\Collection;
 use HJerichen\Collections\Reflection\ReflectionMethodCollection;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -72,7 +72,7 @@ class ReflectionMethodCollectionTest extends TestCase
 
     public function testAddingOtherTypeThrowException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $reflectionClass = new ReflectionClass(__CLASS__);
         $this->collection[] = $reflectionClass;
@@ -90,10 +90,16 @@ class ReflectionMethodCollectionTest extends TestCase
         self::assertSame($expected, $actual);
 
         $expected = null;
+        /** @psalm-suppress MixedAssignment */
         $actual = $this->collection['name'];
         self::assertSame($expected, $actual);
     }
 
+    /**
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     * @psalm-suppress UndefinedInterfaceMethod
+     * @psalm-suppress MixedAssignment
+     */
     public function testTraverseCollection(): void
     {
         $this->collection['test'] = $this->reflectionMethod1;
@@ -155,6 +161,7 @@ class ReflectionMethodCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testPutWrongItemsIntoConstructor(): void
     {
         $reflectionClasses = [
@@ -162,7 +169,7 @@ class ReflectionMethodCollectionTest extends TestCase
             new ReflectionClass(__CLASS__)
         ];
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         new ReflectionMethodCollection($reflectionClasses);
     }

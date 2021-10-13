@@ -6,8 +6,8 @@ use HJerichen\Collections\Collection;
 use HJerichen\Collections\Primitive\StringCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
 use HJerichen\Collections\Test\Helpers\StringObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -40,6 +40,7 @@ class StringCollectionTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddInteger(): void
     {
         $this->collection[] = 2;
@@ -49,6 +50,7 @@ class StringCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress ImplicitToStringCast */
     public function testAddStringObject(): void
     {
         $this->collection[] = new StringObject('test');
@@ -58,41 +60,52 @@ class StringCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     * @psalm-suppress InvalidCast
+     */
     public function testAddNormalObject(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = new NormalObject();
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddTrue(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = true;
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddFalse(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = false;
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     * @psalm-suppress InvalidCast
+     */
     public function testAddArray(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = [];
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testGettingIterator(): void
     {
         $this->collection[] = 'test';
 
-        $expected = 'test';
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $item) {
+            $expected = 'test';
+            $actual = $item;
+            self::assertSame($expected, $actual);
+        }
     }
 }

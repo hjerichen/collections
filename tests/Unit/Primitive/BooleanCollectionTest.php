@@ -5,8 +5,8 @@ namespace HJerichen\Collections\Test\Unit\Primitive;
 use HJerichen\Collections\Collection;
 use HJerichen\Collections\Primitive\BooleanCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -48,6 +48,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddOne(): void
     {
         $this->collection[] = 1;
@@ -57,6 +58,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddZero(): void
     {
         $this->collection[] = 0;
@@ -66,6 +68,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddOneAsString(): void
     {
         $this->collection[] = '1';
@@ -75,6 +78,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddZeroAsString(): void
     {
         $this->collection[] = '0';
@@ -84,6 +88,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddEmptyString(): void
     {
         $this->collection[] = '';
@@ -93,6 +98,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddTrueString(): void
     {
         $this->collection[] = 'true';
@@ -102,6 +108,7 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddFalseString(): void
     {
         $this->collection[] = 'false';
@@ -111,51 +118,54 @@ class BooleanCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddSomeString(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = 'test';
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddSomeInteger(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = 2;
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddSomeFloat(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = 2.6;
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddArray(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = [];
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddObject(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = new NormalObject();
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testGettingIterator(): void
     {
         $this->collection[] = true;
 
-        $expected = true;
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $item) {
+            $expected = true;
+            $actual = $item;
+            self::assertSame($expected, $actual);
+        }
     }
-
-
-    /* HELPERS */
 }

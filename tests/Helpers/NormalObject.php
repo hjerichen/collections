@@ -7,5 +7,12 @@ namespace HJerichen\Collections\Test\Helpers;
  */
 class NormalObject
 {
+    public int $id;
+    public string $name;
 
+    public function __construct(int $id = 0)
+    {
+        $this->id = $id;
+        $this->name = '';
+    }
 }

@@ -4,8 +4,8 @@ namespace HJerichen\Collections\Test\Unit\Primitive;
 
 use HJerichen\Collections\Collection;
 use HJerichen\Collections\Primitive\FloatCollection;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -47,6 +47,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddFloatAsString(): void
     {
         $this->collection[] = '7.2';
@@ -65,6 +66,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddIntegerAsString(): void
     {
         $this->collection[] = '7';
@@ -83,6 +85,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddZeroAsString(): void
     {
         $this->collection[] = '0';
@@ -92,41 +95,46 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddSomeString(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = 'test';
     }
 
+    /** @psalm-suppress InvalidScalarArgument */
     public function testAddTrue(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = true;
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddFalse(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = false;
     }
 
+    /** @psalm-suppress InvalidArgument */
     public function testAddArray(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         $this->collection[] = [];
     }
 
-    /** @noinspection PhpPossiblePolymorphicInvocationInspection */
     public function testIterator(): void
     {
         $this->collection[] = 4.6;
 
-        $expected = 4.6;
-        $actual = $this->collection->getIterator()->current();
-        self::assertSame($expected, $actual);
+        foreach ($this->collection as $item) {
+            $expected = 4.6;
+            $actual = $item;
+            self::assertSame($expected, $actual);
+        }
     }
 }

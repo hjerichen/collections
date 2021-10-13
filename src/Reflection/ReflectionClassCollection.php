@@ -9,13 +9,17 @@ use ReflectionClass;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @extends Collection<ReflectionClass>
+ * @extends ObjectCollection<ReflectionClass>
+ * @psalm-suppress InvalidDocblock
  */
 class ReflectionClassCollection extends ObjectCollection
 {
-    /** @param array<int|string,ReflectionClass> $reflectionClasses */
+    /** @param ReflectionClass[] $reflectionClasses */
     public function __construct(array $reflectionClasses = [])
     {
-        parent::__construct(ReflectionClass::class, $reflectionClasses);
+        /** @var class-string<ReflectionClass<object>> $class */
+        $class = ReflectionClass::class;
+        parent::__construct($class, $reflectionClasses);
     }
 
     /** @noinspection PhpRedundantMethodOverrideInspection */
