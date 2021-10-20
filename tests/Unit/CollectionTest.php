@@ -19,6 +19,34 @@ class CollectionTest extends TestCase
 {
     /* TESTS */
 
+    public function testKeepingKeysViaConstructor(): void
+    {
+        $collection = new BooleanCollection([
+            8 => true,
+            10 => false
+        ]);
+
+        $expected = [
+            8 => true,
+            10 => false
+        ];
+        $actual = $collection->asArray();
+        self::assertSame($expected, $actual);
+    }
+
+    public function testPushMultiple(): void
+    {
+        $collection = new BooleanCollection([false, true]);
+        $collection->pushMultiple([
+            8 => true,
+            10 => false
+        ]);
+
+        $expected = [false, true, true, false];
+        $actual = $collection->asArray();
+        self::assertSame($expected, $actual);
+    }
+
     /** @psalm-suppress InvalidScalarArgument */
     public function testDisablingTypeCheck(): void
     {

@@ -23,7 +23,9 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     /** @param array<array-key,T> $items*/
     public function __construct(array $items = [])
     {
-        $this->pushMultiple($items);
+        foreach ($items as $key => $item) {
+            $this[$key] = $item;
+        }
     }
 
     public function enableTypeCheck(): void
