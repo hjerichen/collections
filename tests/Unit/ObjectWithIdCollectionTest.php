@@ -43,6 +43,20 @@ class ObjectWithIdCollectionTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
+    public function testIdsWithAccessPropertyAndNotSet(): void
+    {
+        $object = new NormalObject(4);
+        unset($object->id);
+
+        $collection = new ObjectWithIdCollection(NormalObject::class);
+        $collection[] = new NormalObject(4);
+        $collection[] = $object;
+
+        $expected = [4];
+        $actual = $collection->getIds();
+        self::assertEquals($expected, $actual);
+    }
+
     public function testGetById(): void
     {
         $expected = $this->collection[1];

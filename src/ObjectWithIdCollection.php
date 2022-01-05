@@ -28,7 +28,7 @@ class ObjectWithIdCollection extends ObjectCollection
     public function getIds(): array
     {
         $ids = $this->map($this->idAccess);
-        return array_values($ids);
+        return array_values(array_filter($ids));
     }
 
     /**
@@ -66,7 +66,7 @@ class ObjectWithIdCollection extends ObjectCollection
             return static fn(object $item): ?int => $item->getId();
         }
         if (property_exists($this->type, 'id')) {
-            return static fn(object $item): ?int => $item->id;
+            return static fn(object $item): ?int => $item->id ?? null;
         }
         throw new InvalidArgumentException("Class $this->type provides no id access.");
     }
