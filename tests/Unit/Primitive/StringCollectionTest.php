@@ -31,6 +31,13 @@ class StringCollectionTest extends TestCase
         self::assertInstanceOf(Collection::class, $this->collection);
     }
 
+    public function testGetType(): void
+    {
+        $expected = 'string';
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testAddString(): void
     {
         $this->collection[] = 'test';

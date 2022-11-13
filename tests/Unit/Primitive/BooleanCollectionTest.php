@@ -30,6 +30,13 @@ class BooleanCollectionTest extends TestCase
         self::assertInstanceOf(Collection::class, $this->collection);
     }
 
+    public function testGetType(): void
+    {
+        $expected = 'bool';
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testAddTrue(): void
     {
         $this->collection[] = true;

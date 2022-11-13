@@ -10,6 +10,11 @@ use HJerichen\Collections\Collection;
  */
 class FloatCollection extends Collection
 {
+    public function getType(): string
+    {
+        return 'float';
+    }
+
     /**
      * @param array-key $offset
      * @return float|null

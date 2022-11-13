@@ -29,6 +29,13 @@ class FloatCollectionTest extends TestCase
         self::assertInstanceOf(Collection::class, $this->collection);
     }
 
+    public function testGetType(): void
+    {
+        $expected = 'float';
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testInitializeWithFloat(): void
     {
         $this->collection = new FloatCollection([5.2, 6.3]);

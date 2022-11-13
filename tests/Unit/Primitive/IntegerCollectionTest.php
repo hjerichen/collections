@@ -29,6 +29,13 @@ class IntegerCollectionTest extends TestCase
         self::assertInstanceOf(Collection::class, $this->collection);
     }
 
+    public function testGetType(): void
+    {
+        $expected = 'int';
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testAddInteger(): void
     {
         $this->collection[] = 45;

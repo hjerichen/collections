@@ -29,6 +29,13 @@ class MixedCollectionTest extends TestCase
         self::assertInstanceOf(Collection::class, $this->collection);
     }
 
+    public function testGetType(): void
+    {
+        $expected = 'mixed';
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testAddToCollection(): void
     {
         $normalObject = new NormalObject();

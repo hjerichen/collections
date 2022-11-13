@@ -10,6 +10,11 @@ use HJerichen\Collections\Collection;
  */
 class IntegerCollection extends Collection
 {
+    public function getType(): string
+    {
+        return 'int';
+    }
+
     /**
      * @param array-key $offset
      * @return int|null

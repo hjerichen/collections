@@ -10,6 +10,11 @@ use HJerichen\Collections\Collection;
  */
 class BooleanCollection extends Collection
 {
+    public function getType(): string
+    {
+        return 'bool';
+    }
+
     /**
      * @param array-key $offset
      * @return bool|null

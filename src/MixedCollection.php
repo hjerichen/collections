@@ -8,6 +8,11 @@ namespace HJerichen\Collections;
  */
 class MixedCollection extends Collection
 {
+    public function getType(): string
+    {
+        return 'mixed';
+    }
+
     protected function isValidType($item): bool
     {
         return true;

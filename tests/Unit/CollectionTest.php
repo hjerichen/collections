@@ -34,6 +34,17 @@ class CollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    public function testPush(): void
+    {
+        $collection = new BooleanCollection([false, true]);
+        $collection->push(true);
+        $collection->push(false);
+
+        $expected = [false, true, true, false];
+        $actual = $collection->asArray();
+        self::assertSame($expected, $actual);
+    }
+
     public function testPushMultiple(): void
     {
         $collection = new BooleanCollection([false, true]);
@@ -68,6 +79,15 @@ class CollectionTest extends TestCase
         $expected = $items;
         $actual = $collection->asArray();
         self::assertEquals($expected, $actual);
+    }
+
+    public function testIsEmpty(): void
+    {
+        $collection = new IntegerCollection();
+        $this->assertTrue($collection->isEmpty());
+
+        $collection[] = 99;
+        $this->assertFalse($collection->isEmpty());
     }
 
     public function testMergingTwoCollections(): void
@@ -176,6 +196,13 @@ class CollectionTest extends TestCase
         $expected = [1 => 9, 2 => 3];
         $actual = $collection->asArray();
         self::assertEquals($expected, $actual);
+    }
+
+    public function testContains(): void
+    {
+        $collection = $this->createNewCollection([1, 9, 3]);
+        self::assertTrue($collection->contains(9));
+        self::assertFalse($collection->contains(8));
     }
 
     public function testResettingIndex(): void

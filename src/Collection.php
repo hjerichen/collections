@@ -28,6 +28,8 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         }
     }
 
+    abstract public function getType(): string;
+
     public function enableTypeCheck(): void
     {
         $this->typeCheckEnabled = true;
@@ -36,6 +38,12 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function disableTypeCheck(): void
     {
         $this->typeCheckEnabled = false;
+    }
+
+    /** @param T $item */
+    public function push($item): void
+    {
+        $this[] = $item;
     }
 
     /** @param array<array-key,T> $items */
@@ -92,6 +100,11 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function count(): int
     {
         return count($this->items);
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->count() === 0;
     }
 
     /** @return T[] */
@@ -151,6 +164,12 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function filter(callable $callable): void
     {
         $this->items = $this->find($callable);
+    }
+
+    /** @param T $item */
+    public function contains($item): bool
+    {
+        return in_array($item, $this->items, true);
     }
 
     public function resetIndex(): void

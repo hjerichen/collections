@@ -6,6 +6,8 @@ use HJerichen\Collections\ObjectWithIdCollection;
 use HJerichen\Collections\Test\Helpers\GetIdObject;
 use HJerichen\Collections\Test\Helpers\GetIdObjectCollection;
 use HJerichen\Collections\Test\Helpers\NormalObject;
+use HJerichen\Collections\Test\Helpers\StringObject;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -22,6 +24,13 @@ class ObjectWithIdCollectionTest extends TestCase
     }
 
     /* TESTS */
+
+    public function testGetType(): void
+    {
+        $expected = GetIdObject::class;
+        $actual = $this->collection->getType();
+        $this->assertEquals($expected, $actual);
+    }
 
     public function testIdsWithAccessMethod(): void
     {
@@ -83,5 +92,18 @@ class ObjectWithIdCollectionTest extends TestCase
 
         $this->collection[] = new GetIdObject(null);
         $this->collection->setIdsAsKey();
+    }
+
+    public function testObjectsNeedsToProvideAnIdAccess(): void
+    {
+        $exception = new InvalidArgumentException('Class HJerichen\Collections\Test\Helpers\StringObject provides no id access.');
+        $this->expectExceptionObject($exception);
+
+        new class extends ObjectWithIdCollection {
+            public function __construct()
+            {
+                parent::__construct(StringObject::class, []);
+            }
+        };
     }
 }

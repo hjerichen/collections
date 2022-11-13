@@ -9,7 +9,7 @@ namespace HJerichen\Collections;
  */
 class ObjectCollection extends Collection
 {
-    /** @var class-string */
+    /** @var class-string<T> */
     protected string $type;
 
     /**
@@ -20,6 +20,12 @@ class ObjectCollection extends Collection
     {
         $this->type = $type;
         parent::__construct($items);
+    }
+
+    /** @return class-string<T> */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     protected function isValidType($item): bool
