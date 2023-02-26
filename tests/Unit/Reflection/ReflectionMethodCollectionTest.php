@@ -128,9 +128,8 @@ class ReflectionMethodCollectionTest extends TestCase
 
         $iterator->next();
 
-        $expected = false;
         $actual = $iterator->valid();
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
     public function testIsset(): void
@@ -138,13 +137,11 @@ class ReflectionMethodCollectionTest extends TestCase
         $this->collection['test'] = $this->reflectionMethod1;
         $this->collection['name'] = $this->reflectionMethod2;
 
-        $expected = true;
         $actual = isset($this->collection['test']);
-        self::assertSame($expected, $actual);
+        self::assertTrue($actual);
 
-        $expected = false;
         $actual = isset($this->collection['jon']);
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
     public function testPutItemsIntoConstructor(): void

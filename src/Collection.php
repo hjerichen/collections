@@ -13,6 +13,8 @@ use TypeError;
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
  * @template T
+ * @implements IteratorAggregate<array-key,T>
+ * @implements ArrayAccess<array-key,T>
  */
 abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
 {
@@ -54,10 +56,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         }
     }
 
-    /**
-     * @return Traversable<T>|T[]
-     * @psalm-return Traversable<T>
-     */
+    /** @return Traversable<array-key,T> */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->items);

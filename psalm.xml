@@ -13,9 +13,7 @@
 		</ignoreFiles>
 	</projectFiles>
 	<issueHandlers>
-		<InvalidDocblock errorLevel="suppress"/>
 		<MissingConstructor errorLevel="suppress"/>
-		<MoreSpecificReturnType errorLevel="suppress"/>
 	</issueHandlers>
 	<plugins>
 		<pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

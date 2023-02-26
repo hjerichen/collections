@@ -99,10 +99,11 @@ class ObjectWithIdCollectionTest extends TestCase
         $exception = new InvalidArgumentException('Class HJerichen\Collections\Test\Helpers\StringObject provides no id access.');
         $this->expectExceptionObject($exception);
 
+        /** @psalm-suppress MissingTemplateParam */
         new class extends ObjectWithIdCollection {
             public function __construct()
             {
-                parent::__construct(StringObject::class, []);
+                parent::__construct(StringObject::class);
             }
         };
     }

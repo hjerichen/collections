@@ -47,7 +47,7 @@ class StringCollectionTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddInteger(): void
     {
         $this->collection[] = 2;
@@ -78,7 +78,7 @@ class StringCollectionTest extends TestCase
         $this->collection[] = new NormalObject();
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddTrue(): void
     {
         $this->expectException(TypeError::class);

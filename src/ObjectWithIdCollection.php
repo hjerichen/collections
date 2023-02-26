@@ -7,7 +7,6 @@ use RuntimeException;
 
 /**
  * @template T of object
- * @extends Collection<T>
  * @extends ObjectCollection<T>
  */
 class ObjectWithIdCollection extends ObjectCollection

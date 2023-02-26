@@ -41,91 +41,82 @@ class BooleanCollectionTest extends TestCase
     {
         $this->collection[] = true;
 
-        $expected = true;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertTrue($actual);
     }
 
     public function testAddFalse(): void
     {
         $this->collection[] = false;
 
-        $expected = false;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddOne(): void
     {
         $this->collection[] = 1;
 
-        $expected = true;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertTrue($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddZero(): void
     {
         $this->collection[] = 0;
 
-        $expected = false;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddOneAsString(): void
     {
         $this->collection[] = '1';
 
-        $expected = true;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertTrue($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddZeroAsString(): void
     {
         $this->collection[] = '0';
 
-        $expected = false;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddEmptyString(): void
     {
         $this->collection[] = '';
 
-        $expected = false;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddTrueString(): void
     {
         $this->collection[] = 'true';
 
-        $expected = true;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertTrue($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddFalseString(): void
     {
         $this->collection[] = 'false';
 
-        $expected = false;
         $actual = $this->collection[0];
-        self::assertSame($expected, $actual);
+        self::assertFalse($actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddSomeString(): void
     {
         $this->expectException(TypeError::class);
@@ -133,7 +124,7 @@ class BooleanCollectionTest extends TestCase
         $this->collection[] = 'test';
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddSomeInteger(): void
     {
         $this->expectException(TypeError::class);
@@ -141,7 +132,7 @@ class BooleanCollectionTest extends TestCase
         $this->collection[] = 2;
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddSomeFloat(): void
     {
         $this->expectException(TypeError::class);
@@ -170,9 +161,7 @@ class BooleanCollectionTest extends TestCase
         $this->collection[] = true;
 
         foreach ($this->collection as $item) {
-            $expected = true;
-            $actual = $item;
-            self::assertSame($expected, $actual);
+            self::assertTrue($item);
         }
     }
 }

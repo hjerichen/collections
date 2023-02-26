@@ -2,13 +2,11 @@
 
 namespace HJerichen\Collections\Reflection;
 
-use HJerichen\Collections\Collection;
 use HJerichen\Collections\ObjectCollection;
 use ReflectionParameter;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
- * @extends Collection<ReflectionParameter>
  * @extends ObjectCollection<ReflectionParameter>
  */
 class ReflectionParameterCollection extends ObjectCollection
@@ -19,7 +17,6 @@ class ReflectionParameterCollection extends ObjectCollection
         parent::__construct(ReflectionParameter::class, $reflectionParameters);
     }
 
-    /** @noinspection PhpRedundantMethodOverrideInspection */
     public function offsetGet($offset): ?ReflectionParameter
     {
         return parent::offsetGet($offset);

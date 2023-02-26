@@ -10,10 +10,6 @@ class GetIdObject
         $this->id = $id;
     }
 
-    /**
-     * @noinspection PhpUnused
-     * @noinspection UnknownInspectionInspection
-     */
     public function getId(): ?int
     {
         return $this->id;

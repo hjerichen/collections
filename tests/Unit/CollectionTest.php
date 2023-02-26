@@ -58,7 +58,7 @@ class CollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testDisablingTypeCheck(): void
     {
         $collection = new BooleanCollection();
@@ -120,7 +120,7 @@ class CollectionTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testMergingWithDifferentCollectionTypes(): void
     {
         $collection1 = new StringCollection();

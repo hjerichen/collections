@@ -54,7 +54,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddFloatAsString(): void
     {
         $this->collection[] = '7.2';
@@ -73,7 +73,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddIntegerAsString(): void
     {
         $this->collection[] = '7';
@@ -92,7 +92,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddZeroAsString(): void
     {
         $this->collection[] = '0';
@@ -102,7 +102,7 @@ class FloatCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddSomeString(): void
     {
         $this->expectException(TypeError::class);
@@ -110,7 +110,7 @@ class FloatCollectionTest extends TestCase
         $this->collection[] = 'test';
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddTrue(): void
     {
         $this->expectException(TypeError::class);

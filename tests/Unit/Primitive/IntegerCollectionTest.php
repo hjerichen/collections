@@ -45,7 +45,7 @@ class IntegerCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddIntegerAsString(): void
     {
         $this->collection[] = '45';
@@ -64,7 +64,7 @@ class IntegerCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddZeroAsString(): void
     {
         $this->collection[] = '0';
@@ -83,7 +83,7 @@ class IntegerCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddNegativeIntegerAsString(): void
     {
         $this->collection[] = '-10';
@@ -93,7 +93,7 @@ class IntegerCollectionTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddFloat(): void
     {
         $this->expectException(TypeError::class);
@@ -101,7 +101,7 @@ class IntegerCollectionTest extends TestCase
         $this->collection[] = 44.6;
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddFloatAsString(): void
     {
         $this->expectException(TypeError::class);
@@ -109,7 +109,7 @@ class IntegerCollectionTest extends TestCase
         $this->collection[] = '44.6';
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddString(): void
     {
         $this->expectException(TypeError::class);
@@ -117,7 +117,7 @@ class IntegerCollectionTest extends TestCase
         $this->collection[] = 'true';
     }
 
-    /** @psalm-suppress InvalidScalarArgument */
+    /** @psalm-suppress InvalidArgument */
     public function testAddTrue(): void
     {
         $this->expectException(TypeError::class);
