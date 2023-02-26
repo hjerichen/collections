@@ -16,15 +16,6 @@ class StringCollection extends Collection
     }
 
     /**
-     * @param array-key $offset
-     * @return string|null
-     */
-    public function offsetGet($offset): ?string
-    {
-        return parent::offsetGet($offset);
-    }
-
-    /**
      * @param array-key|null $offset
      * @param string $value
      * @psalm-suppress RedundantCastGivenDocblockType

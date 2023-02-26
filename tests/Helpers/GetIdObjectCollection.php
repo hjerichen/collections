@@ -13,9 +13,4 @@ class GetIdObjectCollection extends ObjectWithIdCollection
     public function __construct(array $items = []) {
         parent::__construct(GetIdObject::class, $items);
     }
-
-    public function offsetGet($offset): ?GetIdObject
-    {
-        return parent::offsetGet($offset);
-    }
 }

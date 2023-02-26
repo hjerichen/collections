@@ -16,15 +16,6 @@ class FloatCollection extends Collection
     }
 
     /**
-     * @param array-key $offset
-     * @return float|null
-     */
-    public function offsetGet($offset): ?float
-    {
-        return parent::offsetGet($offset);
-    }
-
-    /**
      * @param array-key|null $offset
      * @param float $value
      * @psalm-suppress RedundantCastGivenDocblockType

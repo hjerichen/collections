@@ -16,15 +16,6 @@ class BooleanCollection extends Collection
     }
 
     /**
-     * @param array-key $offset
-     * @return bool|null
-     */
-    public function offsetGet($offset): ?bool
-    {
-        return parent::offsetGet($offset);
-    }
-
-    /**
      * @param array-key|null $offset
      * @param bool $value
      * @psalm-suppress DocblockTypeContradiction

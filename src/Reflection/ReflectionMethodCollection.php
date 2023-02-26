@@ -16,9 +16,4 @@ class ReflectionMethodCollection extends ObjectCollection
     {
         parent::__construct(ReflectionMethod::class, $reflectionMethods);
     }
-
-    public function offsetGet($offset): ?ReflectionMethod
-    {
-        return parent::offsetGet($offset);
-    }
 }

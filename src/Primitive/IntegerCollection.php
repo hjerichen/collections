@@ -16,15 +16,6 @@ class IntegerCollection extends Collection
     }
 
     /**
-     * @param array-key $offset
-     * @return int|null
-     */
-    public function offsetGet($offset): ?int
-    {
-        return parent::offsetGet($offset);
-    }
-
-    /**
      * @param array-key|null $offset
      * @param int $value
      * @psalm-suppress RedundantCastGivenDocblockType
