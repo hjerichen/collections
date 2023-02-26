@@ -10,6 +10,7 @@ class GetIdObject
         $this->id = $id;
     }
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function getId(): ?int
     {
         return $this->id;
