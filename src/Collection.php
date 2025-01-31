@@ -9,6 +9,7 @@ use IteratorAggregate;
 use RuntimeException;
 use Traversable;
 use TypeError;
+use ValueError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -75,6 +76,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param array-key $offset
      * @return T|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->items[$offset] ?? null;
@@ -180,7 +182,11 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function replaceKeys(array $keys): void
     {
         $this->checkKeysForReplace($keys);
-        $this->items = array_combine($keys, $this->items);
+        $combined = array_combine($keys, $this->items);
+        if ($combined === false) {
+            throw new ValueError('Keys and items do not match.');
+        }
+        $this->items = $combined;
     }
 
     /** @param mixed $item */
