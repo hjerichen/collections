@@ -13,7 +13,7 @@ class MixedCollection extends Collection
         return 'mixed';
     }
 
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return true;
     }

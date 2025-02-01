@@ -33,6 +33,7 @@ class ObjectWithIdCollection extends ObjectCollection
     /**
      * @param int $id
      * @return T|null
+     * @noinspection PhpDocSignatureInspection
      */
     public function getById(int $id): ?object
     {

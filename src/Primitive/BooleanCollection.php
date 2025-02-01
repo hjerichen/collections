@@ -29,11 +29,7 @@ class BooleanCollection extends Collection
         $this->offsetSetWithoutCheck($offset, (bool)$value);
     }
 
-    /**
-     * @param mixed $item
-     * @return bool
-     */
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return is_bool($item) ||
             $item === 1 || $item === 0 ||

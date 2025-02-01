@@ -26,13 +26,12 @@ class StringCollection extends Collection
         $this->offsetSetWithoutCheck($offset, (string)$value);
     }
 
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return is_string($item) || (!is_bool($item) && !is_array($item) && $this->itemCanBeConvertedToString($item));
     }
 
-    /** @param mixed $item */
-    private function itemCanBeConvertedToString($item): bool
+    private function itemCanBeConvertedToString(mixed $item): bool
     {
         return
             (!is_object($item) && settype($item, 'string') !== false) ||

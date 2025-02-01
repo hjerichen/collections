@@ -26,7 +26,7 @@ class FloatCollection extends Collection
         $this->offsetSetWithoutCheck($offset, (float)$value);
     }
 
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return is_numeric($item);
     }

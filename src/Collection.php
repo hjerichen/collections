@@ -9,7 +9,6 @@ use IteratorAggregate;
 use RuntimeException;
 use Traversable;
 use TypeError;
-use ValueError;
 
 /**
  * @author Heiko Jerichen <heiko@jerichen.de>
@@ -76,8 +75,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param array-key $offset
      * @return T|null
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->items[$offset] ?? null;
     }
@@ -185,11 +183,9 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
         $this->items = array_combine($keys, $this->items);
     }
 
-    /** @param mixed $item */
-    abstract protected function isValidType($item): bool;
+    abstract protected function isValidType(mixed $item): bool;
 
-    /** @param mixed $item */
-    protected function checkType($item): void
+    protected function checkType(mixed $item): void
     {
         if ($this->typeCheckEnabled && !$this->isValidType($item)) {
             throw new TypeError('invalid type');
@@ -200,7 +196,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
      * @param array-key|null $offset
      * @param T $item
      */
-    protected function offsetSetWithoutCheck($offset, $item): void
+    protected function offsetSetWithoutCheck(mixed $offset, mixed $item): void
     {
         $offset !== null ? $this->items[$offset] = $item : $this->items[] = $item;
     }

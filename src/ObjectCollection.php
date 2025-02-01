@@ -28,7 +28,7 @@ class ObjectCollection extends Collection
         return $this->type;
     }
 
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return $item instanceof $this->type;
     }

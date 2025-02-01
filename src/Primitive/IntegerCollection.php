@@ -26,7 +26,7 @@ class IntegerCollection extends Collection
         $this->offsetSetWithoutCheck($offset, (int)$value);
     }
 
-    protected function isValidType($item): bool
+    protected function isValidType(mixed $item): bool
     {
         return is_int($item) || ((string)$item === (string)(int)$item && !is_bool($item));
     }
