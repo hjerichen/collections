@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 | ^8.0"
+        "php": "^8.2"
     },
     "autoload": {
         "psr-4": {
@@ -21,7 +21,7 @@
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^9.0",
-        "vimeo/psalm": "^5.7.7",
-        "psalm/plugin-phpunit": "^0.18.4"
+        "vimeo/psalm": "6.0.*",
+        "psalm/plugin-phpunit": "^0.19"
     }
 }
