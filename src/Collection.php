@@ -182,11 +182,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable
     public function replaceKeys(array $keys): void
     {
         $this->checkKeysForReplace($keys);
-        $combined = array_combine($keys, $this->items);
-        if ($combined === false) {
-            throw new ValueError('Keys and items do not match.');
-        }
-        $this->items = $combined;
+        $this->items = array_combine($keys, $this->items);
     }
 
     /** @param mixed $item */
